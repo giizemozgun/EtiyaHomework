@@ -32,7 +32,7 @@ public class GamePlayedManager implements GamePlayedService {
 	
 	public double calculateGameScore(GamePlayed gamePlayed) {
 		
-		double gameScore = gamePlayed.getGamer().getGameScore() * (gamePlayed.getScoreRate().getRate())/100;
+		double gameScore = gamePlayed.getGamer().getGameScore() * (gamePlayed.getScoreCalculatorType().getRate())/100;
 		return gameScore ;
 	}
 	

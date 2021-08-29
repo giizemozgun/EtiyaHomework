@@ -4,14 +4,14 @@ public class GamePlayed {
 	private int id;
 	private Gamer gamer;
 	private Game game;
-	private ScoreCalculatorType scoreRate;
+	private ScoreCalculatorType scoreCalculatorType;
 	
-	public GamePlayed(int id, Gamer gamer, Game game, ScoreCalculatorType scoreRate) {
+	public GamePlayed(int id, Gamer gamer, Game game, ScoreCalculatorType scoreCalculatorType) {
 		super();
 		this.id = id;
 		this.gamer = gamer;
 		this.game = game;
-		this.scoreRate = scoreRate;
+		this.scoreCalculatorType = scoreCalculatorType;
 	}
 	public GamePlayed() {
 		super();
@@ -34,11 +34,11 @@ public class GamePlayed {
 	public void setGame(Game game) {
 		this.game = game;
 	}
-	public ScoreCalculatorType getScoreRate() {
-		return scoreRate;
+	public ScoreCalculatorType getScoreCalculatorType() {
+		return scoreCalculatorType;
 	}
-	public void setScoreRate(ScoreCalculatorType scoreRate) {
-		this.scoreRate = scoreRate;
+	public void setScoreRate(ScoreCalculatorType scoreCalculatorType) {
+		this.scoreCalculatorType = scoreCalculatorType;
 	}
 	
 }
