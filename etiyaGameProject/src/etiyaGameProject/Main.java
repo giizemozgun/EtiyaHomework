@@ -11,12 +11,17 @@ import business.concretes.GamePlayedManager;
 import business.concretes.GamerManager;
 import business.concretes.SalesManager;
 import core.mernisServiceAdapter;
-import entities.Campaign;
-import entities.Game;
-import entities.GamePlayed;
-import entities.Gamer;
-import entities.Sales;
-import entities.ScoreCalculatorType;
+import dataAccess.concretes.JdbcCampaignDao;
+import dataAccess.concretes.JdbcGameDao;
+import dataAccess.concretes.JdbcGamePlayedDao;
+import dataAccess.concretes.JdbcGamerDao;
+import dataAccess.concretes.JdbcSalesDao;
+import entities.concretes.Campaign;
+import entities.concretes.Game;
+import entities.concretes.GamePlayed;
+import entities.concretes.Gamer;
+import entities.concretes.Sales;
+import entities.concretes.ScoreCalculatorType;
 
 public class Main {
 
@@ -52,37 +57,37 @@ public class Main {
 		GamePlayed gamePlayed4 = new GamePlayed(4,gamer4, game1, scoreCalculatorType4);
 		
 		
-		GamePlayedService gamePlayedService = new GamePlayedManager();
+		GamePlayedService gamePlayedService = new GamePlayedManager(new JdbcGamePlayedDao());
 		gamePlayedService.add(gamePlayed1);
 		
-		GamePlayedService gamePlayedService2 = new GamePlayedManager();
+		GamePlayedService gamePlayedService2 = new GamePlayedManager(new JdbcGamePlayedDao());
 		
 		gamePlayedService2.add(gamePlayed2);
 		
-		GamePlayedService gamePlayedService3 = new GamePlayedManager();
+		GamePlayedService gamePlayedService3 = new GamePlayedManager(new JdbcGamePlayedDao());
 		gamePlayedService3.add(gamePlayed3);
 		
-		GamePlayedService gamePlayedService4 = new GamePlayedManager();
+		GamePlayedService gamePlayedService4 = new GamePlayedManager(new JdbcGamePlayedDao());
 		gamePlayedService4.add(gamePlayed4);
 		
 		System.out.println("-------------------------------------------------");
 		
-		GamerService gamerService = new GamerManager(new mernisServiceAdapter());
+		GamerService gamerService = new GamerManager(new mernisServiceAdapter(),new JdbcGamerDao());
 		gamerService.add(gamer1);
 		gamerService.add(gamer2);
 		System.out.println("-------------------------------------------------");
 		
-		GameService gameService = new GameManager();
+		GameService gameService = new GameManager(new JdbcGameDao());
 		gameService.add(game1);
 		gameService.add(game2);
 		System.out.println("-------------------------------------------------");
 		
-		CampaignService campaignService = new CampaignManager();
+		CampaignService campaignService = new CampaignManager(new JdbcCampaignDao());
 		campaignService.add(campaign1);
 		campaignService.add(campaign2);
 		System.out.println("-------------------------------------------------");
 		
-		SalesService salesService = new SalesManager();
+		SalesService salesService = new SalesManager(new JdbcSalesDao());
 		salesService.add(sales1);
 		salesService.add(sales2);
 		

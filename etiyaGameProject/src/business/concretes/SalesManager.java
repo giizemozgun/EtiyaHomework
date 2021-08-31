@@ -1,9 +1,21 @@
 package business.concretes;
 
+import java.util.List;
+
 import business.abstracts.SalesService;
-import entities.Sales;
+import dataAccess.abstracts.SalesDao;
+import entities.concretes.Sales;
 
 public class SalesManager implements SalesService{
+
+	SalesDao salesDao;
+	
+	
+
+	public SalesManager(SalesDao salesDao) {
+		super();
+		this.salesDao = salesDao;
+	}
 
 	@Override
 	public void add(Sales sales) {
@@ -15,12 +27,14 @@ public class SalesManager implements SalesService{
 				"- Kampanyalı Fiyat : " + this.calculateCampaignPrice(sales) + 
 				" - Satış işlemi gerçekleşti"
 						);
+		this.salesDao.add(sales);
 		
 	}
 
 	@Override
-	public void getAll() {
+	public List<Sales> getAll() {
 		System.out.println("Listelendi");
+		return this.salesDao.getAll();
 		
 	}
 
@@ -28,6 +42,7 @@ public class SalesManager implements SalesService{
 	public void update(Sales sales) {
 		System.out.println("Kampanya adı : " + sales.getCampaign().getName() + " Oyuncunun adı : "
 				+ sales.getGamer().getFirstName() + " Güncellendi");
+		this.salesDao.update(sales);
 		
 	}
 
@@ -35,6 +50,7 @@ public class SalesManager implements SalesService{
 	public void delete(Sales sales) {
 		System.out.println("Kampanya adı : " + sales.getCampaign().getName() + " Müşteri adı : "
 				+ sales.getGamer().getFirstName() + " Silindi");
+		this.salesDao.delete(sales);
 
 		
 	}
