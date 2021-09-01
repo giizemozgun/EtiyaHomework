@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/Main.java=UTF-8
+encoding//src/dataAccess/concretes/JpaCourseDao.java=UTF-8
+encoding//src/entities/concretes/Course.java=UTF-8
