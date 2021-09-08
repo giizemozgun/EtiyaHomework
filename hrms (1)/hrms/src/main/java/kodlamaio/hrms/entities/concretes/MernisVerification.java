@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -25,5 +27,7 @@ public class MernisVerification {
 	@Column(name = "result")
 	private boolean result;
 	
-	
+	@OneToOne()
+	@JoinColumn(name="id")
+	private User user;
 }

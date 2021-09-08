@@ -6,20 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "job_seekers")
-public class JobSeeker extends User {
+public class JobSeeker {
 	
 	@Id
 	@GeneratedValue
@@ -37,7 +37,16 @@ public class JobSeeker extends User {
 	
 	@Column(name = "birth_date")
 	private Date birthDate;
+	
+	@Column(name = "email")
+	private Date email;
+	
+	
+	
 
+	@OneToOne()
+	@JoinColumn(name="id")
+	private User user;
 	
 	
 	

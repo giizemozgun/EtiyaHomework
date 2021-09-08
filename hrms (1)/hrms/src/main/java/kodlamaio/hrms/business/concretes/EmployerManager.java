@@ -20,11 +20,13 @@ public class EmployerManager implements EmployerService {
 	private EmployerDao employerDao;
 	private EmailVerificationService emailVerificationService;
 	
+	
 	@Autowired
 	public EmployerManager(EmployerDao employerDao, EmailVerificationService emailVerificationService) {
 		super();
 		this.employerDao = employerDao;
 		this.emailVerificationService = emailVerificationService;
+		
 	}
 
 	@Override
@@ -36,23 +38,23 @@ public class EmployerManager implements EmployerService {
 	public Result add(Employer employer) {
 		if (employer.getCompanyName() == null || employer.getCompanyName().isBlank() 
 				|| employer.getWebSiteAddress() == null
-				|| employer.getWebSiteAddress().isBlank() || employer.getEmail() == null 
-				||  employer.getEmail().isBlank()
-				|| employer.getPassword() == null || employer.getPassword().isBlank()
-				|| employer.getPasswordAgain() == null || employer.getPasswordAgain().isBlank()
+				|| employer.getWebSiteAddress().isBlank() || employer.getUser().getEmail() == null 
+				||  employer.getUser().getEmail().isBlank()
+				|| employer.getUser().getPassword() == null || employer.getUser().getPassword().isBlank()
+				|| employer.getUser().getPasswordAgain() == null || employer.getUser().getPasswordAgain().isBlank()
 				|| employer.getPhoneNumber() == null || employer.getPhoneNumber().isBlank())
 			return new ErrorResult("Alanlar boş bırakılamaz.");
 
-		if (!emailVerificationService.validate(employer.getEmail()).isSuccess())
+		if (!emailVerificationService.validate(employer.getUser().getEmail()).isSuccess())
 			return new ErrorResult("Girilen email hatalı.");
 
-		if (employerDao.existsEmployerByEmail(employer.getEmail()))
+		if (employerDao.existsEmployerByEmail(employer.getUser().getEmail()))
 			return new ErrorResult("Email sisteme daha önce kaydolmuş");
 
-		if (!emailVerificationService.checkEmail(employer.getWebSiteAddress(), employer.getEmail()))
+		if (!emailVerificationService.checkEmail(employer.getWebSiteAddress(), employer.getUser().getEmail()))
 			return new ErrorResult("Email ile web adresi uyumlu değil.");
 
-		if (!emailVerificationService.validate(employer.getEmail()).isSuccess())
+		if (!emailVerificationService.validate(employer.getUser().getEmail()).isSuccess())
 			return new ErrorResult("Mail doğrulaması başarısız.");
 
 		this.employerDao.save(employer);

@@ -42,29 +42,29 @@ public class JobSeekerManager implements JobSeekerService{
 
 	@Override
 	public Result add(JobSeeker jobSeeker) {
-		if (jobSeeker.getEmail() == null || jobSeeker.getEmail().isBlank() || jobSeeker.getFirstName() == null
+		if (jobSeeker.getUser().getEmail() == null || jobSeeker.getUser().getEmail().isBlank() || jobSeeker.getFirstName() == null
 				|| jobSeeker.getFirstName().isBlank() || jobSeeker.getLastName() == null
 				|| jobSeeker.getLastName().isBlank() || jobSeeker.getNationalIdentity() == null
-				|| jobSeeker.getNationalIdentity().isBlank() || jobSeeker.getPassword() == null
-				|| jobSeeker.getPassword().isBlank() || jobSeeker.getPasswordAgain() == null
-				|| jobSeeker.getPasswordAgain().isBlank())
+				|| jobSeeker.getNationalIdentity().isBlank() || jobSeeker.getUser().getPassword() == null
+				|| jobSeeker.getUser().getPassword().isBlank() || jobSeeker.getUser().getPasswordAgain() == null
+				|| jobSeeker.getUser().getPasswordAgain().isBlank())
 			return new ErrorResult("Kayıt için eksik değer girildi, kontrol edip tekrar deneyin.");
 
 		if (!mernisVerificationService.validate(jobSeeker.getNationalIdentity(), jobSeeker.getFirstName(),
 				jobSeeker.getLastName(), jobSeeker.getBirthDate()).isSuccess())
 			return new ErrorResult("Kullanıcı kimliği doğrulanamadı.");
 
-		if (jobSeekerDao.existsJobSeekerByEmail(jobSeeker.getEmail()))
+		if (jobSeekerDao.existsJobSeekerByEmail(jobSeeker.getUser().getEmail()))
 			return new ErrorResult("Email bu sisteme kayıtlı.");
 
-		if (jobSeekerDao.existsJobSeekerByIdentityNumber(jobSeeker.getNationalIdentity()))
+		if (jobSeekerDao.existsJobSeekerByNationalIdentity(jobSeeker.getNationalIdentity()))
 			return new ErrorResult("Kimlik numaranız sistemde kayıtlıdır.");
 
-		if (!emailVerificationService.validate(jobSeeker.getEmail()).isSuccess())
+		if (!emailVerificationService.validate(jobSeeker.getUser().getEmail()).isSuccess())
 			return new ErrorResult("Mail doğrulaması başarısız.");
 
 		jobSeekerDao.save(jobSeeker);
-		return new SuccessResult(jobSeeker.getEmail() + " : Sisteme kaydoldu.");
+		return new SuccessResult(jobSeeker.getUser().getEmail() + " : Sisteme kaydoldu.");
 	}
 	
 }
