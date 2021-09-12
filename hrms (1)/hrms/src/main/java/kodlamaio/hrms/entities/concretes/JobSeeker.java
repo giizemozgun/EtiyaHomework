@@ -1,14 +1,20 @@
 package kodlamaio.hrms.entities.concretes;
 
-import java.sql.Date;
+
+
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +29,8 @@ public class JobSeeker {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "seeker_id")
-	private int seekerId;
+	@Column(name = "id")
+	private int Id;
 	
 	@Column(name = "first_name")
 	private String firstName;
@@ -38,15 +44,14 @@ public class JobSeeker {
 	@Column(name = "birth_date")
 	private Date birthDate;
 	
-	@Column(name = "email")
-	private Date email;
-	
-	
-	
-
 	@OneToOne()
 	@JoinColumn(name="id")
 	private User user;
+	
+	
+	@OneToMany(mappedBy="jobSeeker")
+	@JsonIgnore
+    private List<Resume> resumes;
 	
 	
 	

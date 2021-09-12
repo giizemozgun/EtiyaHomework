@@ -54,7 +54,7 @@ public class JobSeekerManager implements JobSeekerService{
 				jobSeeker.getLastName(), jobSeeker.getBirthDate()).isSuccess())
 			return new ErrorResult("Kullanıcı kimliği doğrulanamadı.");
 
-		if (jobSeekerDao.existsJobSeekerByEmail(jobSeeker.getUser().getEmail()))
+		if (jobSeekerDao.existsJobSeekerByUser_Email(jobSeeker.getUser().getEmail()))
 			return new ErrorResult("Email bu sisteme kayıtlı.");
 
 		if (jobSeekerDao.existsJobSeekerByNationalIdentity(jobSeeker.getNationalIdentity()))

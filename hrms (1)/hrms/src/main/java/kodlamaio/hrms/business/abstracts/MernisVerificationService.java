@@ -1,6 +1,8 @@
 package kodlamaio.hrms.business.abstracts;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import kodlamaio.hrms.core.utilities.results.Result;
 
